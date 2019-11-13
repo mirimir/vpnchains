@@ -1,0 +1,46 @@
+*nat
+
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+-A OUTPUT -o lo -j RETURN
+# for nested chains with three vpns, this should specify tun2, and so on
+-A POSTROUTING -o tun1 -j MASQUERADE
+
+COMMIT
+
+*filter
+
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+
+-A INPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -i lo -j ACCEPT
+-A INPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+# this allows all traffic via the LAN interface
+-A INPUT -i enp0s8 -j ACCEPT
+-A INPUT -j DROP
+
+-A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
+# for nested chains with three vpns, this should specify tun2, and so on
+-A FORWARD -i enp0s8 -o tun1 -j ACCEPT
+-A FORWARD -j DROP
+
+-A OUTPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -o lo -j ACCEPT
+-A OUTPUT -s 127.0.0.1/32 -d 127.0.0.1/32 -j ACCEPT
+-A OUTPUT -m conntrack --ctstate ESTABLISHED -j ACCEPT
+# this allows traffic only to the VPN0 server via the WAN interface
+-A OUTPUT -o enp0s3 -d VPN0 -j ACCEPT
+# this allows traffic only to the VPN1 server via the VPN0 interface (tun0)
+-A OUTPUT -o tun0 -d VPN1 -j ACCEPT
+# this allows all traffic via the VPN1 interface (tun1)
+-A OUTPUT -o tun1 -j ACCEPT
+# for nested chains with three vpns, these rules should be used instead
+# -A OUTPUT -o tun1 -d VPN2 -j ACCEPT
+# -A OUTPUT -o tun2 -j ACCEPT
+-A OUTPUT -j DROP
+
+COMMIT
