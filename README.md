@@ -64,7 +64,7 @@ First clone the vpnchains repository to /home/user/, and fix permissions
 Install packages, enable IPv4 forwarding, and configure ISC DHCP server
 
     # apt-get update
-    # apt-get -y install isc-dhcp-server iptables-persistent w3m
+    # apt-get -y install openvpn isc-dhcp-server iptables-persistent w3m
     # echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
     # sysctl -p
     # cp /home/user/vpnchains/dhcp/dhcpd.conf /etc/dhcp/
