@@ -122,7 +122,7 @@ Now create an OpenVPN configuration file for each server IPv4 address.
     # cp /home/user/vpnchains/openvpn_scripts/write-vpn0-conf.sh /etc/openvpn/scripts/
     # cp /home/user/vpnchains/openvpn_scripts/write-vpn1-conf.sh /etc/openvpn/scripts/
 
-Those scripts specify UDP port 1194, so change as required.
+Those scripts specify UDP port 1194, so change as required. Then execute them to create the OpenVPN configuration files.
 
     # /etc/openvpn/scripts/write-vpn0-conf.sh
     # /etc/openvpn/scripts/write-vpn1-conf.sh
@@ -132,7 +132,7 @@ Next add a base init script for each VPN service.
     # cp /home/user/vpnchains/openvpn_scripts/vpn0-base.sh /etc/openvpn/scripts/
     # cp /home/user/vpnchains/openvpn_scripts/vpn1-base.sh /etc/openvpn/scripts/
 
-These won't get run as such. They'll get tweaked, and run on the fly, in the main infinite while loop script. They adjust routing for each VPN server, and then run openvpn to establish the connection. For additional VPNs in the chain, use vpn1-base.sh as the model, and increment the VPN and TUN names (VPN1 to VPN2, and TUN0 to TUN1, and so on).
+These won't get run as such. They'll get tweaked, and run on the fly, in the main infinite while loop script. They adjust routing for each VPN server, and then run openvpn to establish the connection. For additional VPNs in the chain, use vpn1-base.sh as the model, and increment the VPN and TUN names (VPN1 to VPN2, and TUN0 to TUN1, and so on). The routes pushed by the final VPN server are not changed.
 
 Then copy the ip6tables rulset and base iptables ruleset to "/etc/iptables/", and restore ip6tables.
 
