@@ -8,7 +8,7 @@ This is a crude bash hack for creating dynamic two-hop VPN chains in a Debian ro
 * connects to the second VPN server, and waits 15 seconds
 * pings 1.1.1.1 via the second VPN
 * if there's a response, waits 10 minutes, and then restarts the loop
-* otherwise restarts the loop
+* otherwise restarts the loop immediately
 
 The ip6tables ruleset drops everything.
 
@@ -189,7 +189,7 @@ It's just a simple infinite while loop script:
 * connects to the second VPN server, and waits 15 seconds
 * pings 1.1.1.1 via the second VPN
 * if there's a response, waits 10 minutes, and then restarts the loop
-* otherwise restarts the loop
+* otherwise restarts the loop immediately
 
 For adding a third VPN to the chain, please see comments in the script.
 
@@ -204,3 +204,4 @@ To check status:
     $ tail /etc/openvpn/scripts/vpns.log
     $ cat /etc/openvpn/scripts/vpns.log | less
 
+Having a dynamic IPv4 address doesn't interfere with browsing and streaming. However, it does kill connectivity with BitTorrent swarms, and you must restart the client. So for torrenting, you may want to increase the cycle period.
