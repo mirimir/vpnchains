@@ -171,7 +171,7 @@ Then copy the ip6tables rulset and base iptables ruleset to "/etc/iptables/", an
 
     # cp /home/user/vpnchains/iptables/rules.v6 /etc/iptables/
     # cp /home/user/vpnchains/iptables/vpn-rules-base.v4 /etc/iptables/
-    # ip6tables-restore < /etc/iptables/rules.v6
+    # /sbin/ip6tables-restore < /etc/iptables/rules.v6
 
 All IPv6 traffic gets dropped. As with the VPN init scripts, "vpn-rules-base.v4" doesn't get restored as such. It'll get tweaked and restored on the fly in the main infinite while loop script. 
 
