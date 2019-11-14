@@ -94,6 +94,7 @@ Repeat for vpn1 etc.
 
 Now you have a list of server IPv4 addresses for each VPN service. Obviously, the more IPv4 addresses that you have for each, the more possible chains there will be. Copy them to "/etc/openvpn/scripts/", renaming appropriately.
 
+    # mkdir /etc/openvpn/scripts
     # cp /home/user/vpn0/ipv4.txt /etc/openvpn/scripts/vpns0
     # cp /home/user/vpn1/ipv4.txt /etc/openvpn/scripts/vpns1
 
