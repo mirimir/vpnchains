@@ -54,23 +54,55 @@ Here, I use that basic approach to create dynamic two-hop VPN chains in a Debian
 
 For the router VM, I used Debian 10 x64, with 1-2 CPU cores, 1 GB RAM and 8 GB dynamically allocated storage. With two network interfaces, one NATed (enp0s3) and the other (enp0s8) attached to a virtual network. One CPU core is enough, unless you'll be torrenting. 
 
-First clone the vpnchains repository to /home/user/, and fix permissions
+After creating the VM, configure enp0s8:
 
-    $ git clone https://github.com/mirimir/vpnchains.git
-    $ chmod u+x /home/user/vpnchains/utility_scripts/*.sh
-    $ su
-    # chmod u+x /home/user/vpnchains/openvpn_scripts/*.sh
+    # nano /etc/network/interfaces
+    
+        source /etc/network/interfaces.d/*
+        
+        # loopback network interface
+        auto lo
+        iface lo inet loopback
+        
+        # WAN interface
+        allow-hotplug enp0s3
+        iface enp0s3 inet dhcp
+        
+        # LAN interface
+        auto enp0s8
+        iface enp0s8 inet static
+        address 192.168.11.1
+        netmask 255.255.255.0
 
-Install packages, enable IPv4 forwarding, and configure ISC DHCP server
+Reboot the VM and install git. Then clone the vpnchains repository to /home/user/, and fix permissions:
 
     # apt-get update
-    # apt-get -y install openvpn isc-dhcp-server iptables-persistent w3m
-    # echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
-    # sysctl -p
-    # cp /home/user/vpnchains/dhcp/dhcpd.conf /etc/dhcp/
-    # echo 'INTERFACES="enp0s8"' > /etc/default/isc-dhcp-server
+    # apt-get -y install git
+    $ git clone https://github.com/mirimir/vpnchains.git
+    $ chmod u+x /home/user/vpnchains/*/*.sh
 
-ISC DHCP server is configured with subnet 192.168.11.0, the router at 192.168.11.1, and 10 client addresses.
+Run "prepare.sh" to install openvpn, isc-dhcp-server, iptables-persistent and w3m; enable IPv4 forwarding; and configure and start ISC DHCP server:
+
+    # /home/user/vpnchains/utility_scripts/prepare.sh
+
+Now start a workspace VM, attached to the same internal network. It will pick up an IPv4 address from the router VM. Then generate an SSH key, SCP it to the router VM, and SSH to it:
+
+    $ ssh-keygen
+    $ scp ~/.ssh/id_rsa.pub user@192.168.11.1:~/
+    $ ssh user@192.168.11.1
+
+Then the configure SSHD in the router VM:
+
+    $ mkdir ~/.ssh
+    $ nano ~/.ssh/authorized_keys
+        [Ctrl-R ~/id_rsa.pub]
+    # nano /etc/ssh/sshd_config
+        ...
+        AuthorizedKeysFile	/home/user/.ssh/authorized_keys
+        ...
+        PasswordAuthentication	no
+        ...
+    # systemctl restart sshd
 
 Decide which VPN services to use. I tested this using ExpressVPN and VPN.ac, but AirVPN, IVPN, Mullvad and PIA are also good choices. It's OK to pay for the first VPN service with a credit card, but I recommend using well-mixed Bitcoin for the rest.
 
