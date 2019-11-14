@@ -12,5 +12,5 @@ do
    echo "cert /etc/openvpn/vpn0/client.crt" >> /tmp/vpn0
    echo "key /etc/openvpn/vpn0/client.key" >> /tmp/vpn0
    echo "tls-auth /etc/openvpn/vpn0/ta.key" >> /tmp/vpn0
-   cat /tmp/vpn0 > /etc/openvpn/vpn0/$IPV4.sh
+   cat /tmp/vpn0 > /etc/openvpn/vpn0/$IPV4.conf
 done
