@@ -199,7 +199,7 @@ Run and enjoy.
 
 To check status:
 
-    $ ping -fc 10 -I tun2 1.1.1.1
+    $ ping -fc 10 -I tun1 1.1.1.1
     $ w3m -dump https://ipchicken.com
     $ tail /etc/openvpn/scripts/vpns.log
     $ cat /etc/openvpn/scripts/vpns.log | less
