@@ -146,7 +146,7 @@ Create these files for each VPN service, as needed. For example:
 
 The certificates and keys come from the OpenVPN configuration files. Most VPN services use the same "ca.crt" and "ta.key" for all servers. But you should verify that. If they're server-specific, just leave them inline.
 
-Many VPN services still use "client.crt" and "client.key", and they're typically client-specific. But there's arguably no need for them, given that client authentication doesn't matter much for VPN services. And indeed, they arguably reduce user privacy. But if they're provided, you must use them.
+Many VPN services still use "client.crt" and "client.key", and they're typically client-specific. But there's arguably no need for them, given that client authentication doesn't matter much for VPN services. And indeed, they arguably reduce user privacy. But if they're provided, you must use them. And if they're not provided, just create empty files.
 
 The "up" file for each VPN service contains the username and password, on separate lines. The "base.conf" file for each contains the shared block from the OpenVPN configuration files, after stripping out "remote *" lines, inline certificates and keys, and the "auth-user-pass" line. 
 
