@@ -7,6 +7,7 @@ do
    echo "remote "$IPV4 > /tmp/vpn1
    echo "rport $RPORT" >> /tmp/vpn1
    cat /etc/openvpn/vpn1/base.conf >> /tmp/vpn1
+   # drop if VPN service doesn't use username/password authentication
    echo "auth-user-pass /etc/openvpn/vpn1/up" >> /tmp/vpn1
    echo "ca /etc/openvpn/vpn1/ca.crt" >> /tmp/vpn1
    # drop if VPN service doesn't use client.crt
