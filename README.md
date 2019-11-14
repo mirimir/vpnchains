@@ -146,7 +146,7 @@ Create these files for each VPN service, as needed. For example:
 
 The certificates and keys come from the OpenVPN configuration files. Most VPN services use the same "ca.crt" and "ta.key" for all servers. But you should verify that. If they're server-specific, just leave them inline.
 
-Many VPN services still use "client.crt" and "client.key", and they're typically client-specific. But there's arguably no need for them, given that client authentication doesn't matter much for VPN services. And indeed, they arguably reduce user privacy. But if they're provided, you must use them. And if they're not provided, just create empty files.
+Many VPN services still use "client.crt" and "client.key", and they're typically client-specific. But there's arguably no need for them, given that client authentication doesn't matter much for VPN services. And indeed, they arguably reduce user privacy. But if they're provided, you must use them.
 
 The "up" file for each VPN service contains the username and password, on separate lines. The "base.conf" file for each contains the shared block from the OpenVPN configuration files, after stripping out "remote *" lines, inline certificates and keys, and the "auth-user-pass" line. 
 
@@ -155,7 +155,7 @@ Now create an OpenVPN configuration file for each server IPv4 address.
     # cp /home/user/vpnchains/openvpn_scripts/write-vpn0-conf.sh /etc/openvpn/scripts/
     # cp /home/user/vpnchains/openvpn_scripts/write-vpn1-conf.sh /etc/openvpn/scripts/
 
-Those scripts specify UDP port 1194, so change as required. Then execute them to create the OpenVPN configuration files.
+Those scripts specify UDP port 1194, so change as required. Then execute them to create the OpenVPN configuration files. Also, if no client.crt and client.key are provided, drop those lines from the script.
 
     # /etc/openvpn/scripts/write-vpn0-conf.sh
     # /etc/openvpn/scripts/write-vpn1-conf.sh
