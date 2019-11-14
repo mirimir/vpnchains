@@ -88,7 +88,7 @@ Choose which port to use from "ports.txt", and review and redact "hostnames.txt"
     $ cp /home/user/vpnchains/utility_scripts/hostname-ipv4.sh /home/user/vpn0/
     $ cd /home/user/vpn0
     $ ./hostname-ipv4.sh
-    $ cat hostname-ipv4.sh | awk '{ print $2 }' | sort | uniq > ipv4.txt
+    $ cat hostname-ipv4.txt | awk '{ print $2 }' | sort | uniq > ipv4.txt
 
 Repeat for vpn1 etc.
 
