@@ -115,7 +115,7 @@ Download the desired UDP-mode OpenVPN configuration files for each VPN service, 
     $ grep -h -e "remote" * | grep -v "random" | grep -v "cert" | grep -v "persist" | awk '{ print $2 }' | sort | uniq > hostnames.txt
     $ grep -h -e "remote" * | grep -v "random" | grep -v "cert" | grep -v "persist" | awk '{ print $3 }' | sort | uniq > ports.txt
 
-Choose which port to use from "ports.txt", and review and redact "hostnames.txt" as desired. 
+Choose which port to use from "ports.txt", and review and redact "hostnames.txt" as desired. Then use "hostname-ipv4.sh" to extract the IPv4 addresses.
 
     $ cp /home/user/vpnchains/utility_scripts/hostname-ipv4.sh /home/user/vpn0/
     $ cd /home/user/vpn0
@@ -155,7 +155,7 @@ Now create an OpenVPN configuration file for each server IPv4 address.
     # cp /home/user/vpnchains/openvpn_scripts/write-vpn0-conf.sh /etc/openvpn/scripts/
     # cp /home/user/vpnchains/openvpn_scripts/write-vpn1-conf.sh /etc/openvpn/scripts/
 
-Those scripts specify UDP port 1194, so change as required. Then execute them to create the OpenVPN configuration files. Also, if no client.crt and client.key are provided, drop those lines from the script.
+Those scripts specify UDP port 1194, so change as required for each VPN service. If no client.crt and client.key are provided, drop those lines from the script for that VPN service. And if the VPN service doesn't authenticate with username and password, drop the "up" line. Then execute the scripts to create the OpenVPN configuration files. 
 
     # /etc/openvpn/scripts/write-vpn0-conf.sh
     # /etc/openvpn/scripts/write-vpn1-conf.sh
