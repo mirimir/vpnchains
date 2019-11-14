@@ -46,7 +46,7 @@ OK, but let's say that you're not concerned about such global adversaries. Or th
 
 Some years ago, I worked out [how to create nested VPN chains](https://www.ivpn.net/privacy-guides/advanced-privacy-and-anonymity-part-1) using virtual pfSense routers in nested networks. Each router serves as a NAT gateway for a VPN service. And routing routers through other routers creates nested VPN chains.
 
-That approach has served me well. But it's somewhat resource heavy, in that each VPN gateway router is a separate VM. However, one can [instead use routing and iptables](https://github.com/TensorTom/VPN-Chain) in a single machine. There's no OS-level isolation, but it's far lighter, and also far easier to control.
+That approach has served me well. But it's somewhat resource heavy, in that each VPN gateway router is a separate VM. However, one can instead use routing and iptables in a single machine: [TensorTom/VPN-Chain](https://github.com/TensorTom/VPN-Chain). There's no OS-level isolation, but it's far lighter, and also far easier to control.
 
 Here, I use that basic approach to create dynamic two-hop VPN chains in a Debian router with DHCP. Using simple bash scripting. Without the forwarding and DHCP, the scripts could be used in a single machine or VM. 
 
