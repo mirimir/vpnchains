@@ -204,4 +204,4 @@ To check status:
     $ tail /etc/openvpn/scripts/vpns.log
     $ cat /etc/openvpn/scripts/vpns.log | less
 
-Having a dynamic IPv4 address doesn't interfere with browsing and streaming. However, it does kill connectivity with BitTorrent swarms, and you must restart the client. So for torrenting, you may want to increase the cycle period.
+Having a dynamic IPv4 address doesn't interfere with browsing and streaming. However, sometimes it does kill connectivity with BitTorrent swarms, and you must restart the client. So for torrenting, you may want to increase the cycle period. And you may also want to drop VPN servers that block torrenting from the last IPv4 list.
