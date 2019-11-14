@@ -30,7 +30,8 @@ do
    # sleep 5
    # /etc/openvpn/scripts/vpn2.sh
    sleep 15
-   MINRTT=`ping -fc 10 -I tun2 1.1.1.1 | grep -e "rtt" | awk -F '= ' '{ print $2 }' | awk -F '/' '{ print $1 }'`
+   # with a third VPN, ping via tun2
+   MINRTT=`ping -fc 10 -I tun1 1.1.1.1 | grep -e "rtt" | awk -F '= ' '{ print $2 }' | awk -F '/' '{ print $1 }'`
    DATE=`date -u --rfc-3339=seconds`
    echo $DATE  $VPN0  $VPN1  $MINRTT >> /etc/openvpn/scripts/vpns.log
    # with a third VPN, add "$VPN2"
