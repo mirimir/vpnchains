@@ -12,7 +12,7 @@ do
    cat /etc/iptables/vpn-rules-base.v4 | sed "s/VPN0/$VPN0/g" | sed "s/VPN1/$VPN1/g" > /tmp/rules
    # with a third VPN, add '| sed "s/VPN1/$VPN1/g"'
    cat /tmp/rules > /etc/iptables/vpn-rules.v4
-   iptables-restore < /etc/iptables/vpn-rules.v4
+   /sbin/iptables-restore < /etc/iptables/vpn-rules.v4
    cat /etc/openvpn/scripts/vpn0-base.sh | sed "s/VPN0/$VPN0/g" > /tmp/vpns
    cat /tmp/vpns > /etc/openvpn/scripts/vpn0.sh
    chmod u+x /etc/openvpn/scripts/vpn0.sh
